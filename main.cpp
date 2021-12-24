@@ -5,7 +5,7 @@
 #include <emscripten.h>
 #endif
 
-SDL_Window *window = nullptr;  
+SDL_Window *window = nullptr;
 SDL_Renderer *renderer = nullptr;
 SDL_Texture *texture = nullptr;
 
@@ -20,7 +20,7 @@ int main() {
   SDL_Init(SDL_INIT_VIDEO);
   SDL_CreateWindowAndRenderer(800, 600, 0, &window, &renderer);
   texture = IMG_LoadTexture(renderer, "image.png");
-   
+
 #ifndef EMS
   while(game_loop(nullptr)){
     SDL_Delay(1);
@@ -28,7 +28,7 @@ int main() {
 #else
   emscripten_set_main_loop_arg(game_loop, nullptr, -1, true);
 #endif
-  
+
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
   SDL_Quit();
@@ -56,7 +56,7 @@ bool game_loop(void *) {
   }
   x += dx;
   y += dy;
-  
+
   draw();
   SDL_RenderPresent(renderer);
   return event.type != SDL_QUIT;
@@ -65,10 +65,10 @@ bool game_loop(void *) {
 void draw() {
   int width, height;
   SDL_GetWindowSize(window, &width, &height);
-    
+
   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
   SDL_RenderClear(renderer);
-    
+
   SDL_SetRenderDrawColor(renderer, 127, 127, 127, 0);
   SDL_RenderDrawLine(renderer, 0, 0, width, height);
   SDL_RenderDrawLine(renderer, 0, height, width, 0);
