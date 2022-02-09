@@ -39,6 +39,10 @@ bool game_loop(void *) {
   int dx = 0;
   int dy = 0;
   while (SDL_PollEvent(&event)) {
+    if (event.type == SDL_QUIT) {
+      return false;
+    }
+
     switch (event.key.keysym.sym) {
     case SDLK_UP:
       dy = - 10;
@@ -59,7 +63,7 @@ bool game_loop(void *) {
 
   draw();
   SDL_RenderPresent(renderer);
-  return event.type != SDL_QUIT;
+  return true;
 }
 
 void draw() {
